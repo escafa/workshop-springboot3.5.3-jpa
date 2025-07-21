@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.devescafa.project.entities.User;
 import com.devescafa.project.repositories.UserRepository;
+import com.devescafa.project.services.exceptions.ResourceNotFoundException;
 
 
 
@@ -25,7 +26,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	  
 	public User insert(User obj) {
